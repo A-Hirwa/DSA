@@ -67,10 +67,14 @@ class SparseMatrix:
             if len(parts) != 3:
                 print("Input file has wrong format!")
                 return
+            # checking if value is a float
+            if "." in parts[2]:
+                raise ValueError("Invalid value")
             # storing the extracted data into the matrix dictionary
             try:
                 row, col, value = int(parts[0]), int(parts[1]), int(parts[2])
                 self.matrix[(row, col)] = value
+            # returning when there is a value error
             except ValueError:
                 print("Input file has wrong format!")
                 return
