@@ -162,18 +162,17 @@ class SparseMatrix:
 
         b_dict = {}
         # iterating over the current matrix
-        for (row, col), value in matrixB.matrix.items():
-            if row not in b_dict:
-                b_dict[row] = []
-            b_dict[row].append((col, value))
-        # iterating over matrixB
-        for (r, c), v in self.matrix.items():
-            # check if column in b_dict
-            if c in b_dict:
-                for i, j in b_dict[c]:
-                    # multiply value from self matrix(v) and matriB(j) and add result at position (r, i)
-                    result.matrix[(r, i)] = result.matrix.get(
-                        (r, i), 0) + v * j
+        for (rowb, colb), valueb in matrixB.matrix.items():
+            if rowb not in b_dict:
+                b_dict[rowb] = {}
+            b_dict[rowb][colb] = valueb
+        # iterating over self matrix and performs multiplication
+        for (row_a, col_a), val_a in self.matrix.items():
+            # check if column_a in b_dict
+            if col_a in b_dict:
+                for col_b, val_b in b_dict[col_a].items():
+                    result.matrix[(row_a, col_b)] = result.matrix.get(
+                        (row_a, col_b), 0) + val_a * val_b
 
         return result
 
